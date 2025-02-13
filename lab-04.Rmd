@@ -24,6 +24,7 @@ Denny.
 There are `r nrow(dennys)` rows in the dataset and `r ncol(dennys)` variables in the dataset.
 ```{r Denny_properties}
 head(dennys)
+#dennys <- dennys
 ```
 
 Each row corresponds to one restaurant. For each restaurant, the following variables were reported: address, city, state, zip, longitude, and latitude. 
@@ -34,6 +35,7 @@ La Quinta.
 There are `r nrow(laquinta)` rows and `r ncol(laquinta)` variables in the dataset.
 ```{r laquinta_properties}
 head(laquinta)
+#laquinta <- laquinta
 ```
 
 Each row corresponds to one motel. Variables include: address, city, state, zip, longitude, and latitude.  
@@ -44,16 +46,26 @@ Looking from the website, there are La Quinta locations outside of the U.S. The 
 
 ### Exercise 4
 
-...
+In terms of ways of evaluating whether they have locations outside of the U.S., I think there are two ways. First, we can determine whether the states are the ones in the U.S. Second, we can look at the Zip code. There is a range for U.S. zip code, and the ones that do not fall between this range will be a location outside of the U.S. Third, the combination of longitude and latitude should also fall into the range of coordinates, but I think this will be very difficult. 
 
 ### Exercise 5
 
-...
+Finding Dennys locations that are outside of the U.S. 
+```{r state}
+dennys %>% 
+  filter(!(state %in% states$abbreviation))
+```
+
+There are no locations in this dataset that are outside of the U.S. Looking at the description in packages, this dataset describes the 1643 Denny's Restaurants in the United States. So, there are no locations outside of the U.S. in this dataset. 
 
 ### Exercise 6
 
-...
-
+Add a country variable in the Dennys dataset. All are from the United States.
+```{r add_country}
+dennys <- dennys %>% 
+  mutate(country = "United States")
+head(dennys)
+```
  
-Add exercise headings as needed.
+
 
