@@ -1,11 +1,13 @@
-Lab 04 - La Quinta is Spanish for next to Denny’s, Pt. 1
+Lab 04 - Visualizing spatial data
 ================
-Insert your name here
-Insert date here
+Fiona Wang
+02-13-2025
 
 ### Load packages and data
 
 ``` r
+#install.packages("devtools")
+#devtools::install_github("rstudio-education/dsbox")
 library(tidyverse) 
 library(dsbox) 
 ```
@@ -22,7 +24,7 @@ spaces in code chunk labels.
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 1 here. Add code
+Remove this text, and add your answer for Exercise 2 here. Add code
 chunks as needed. Don’t forget to label your code chunk. Do not use
 spaces in code chunk labels.
 
