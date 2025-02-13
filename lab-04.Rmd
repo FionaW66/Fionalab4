@@ -20,21 +20,27 @@ states <- read_csv("data/states.csv")
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+Denny.   
+There are `r nrow(dennys)` rows in the dataset and `r ncol(dennys)` variables in the dataset.
+```{r Denny_properties}
+head(dennys)
+```
+
+Each row corresponds to one restaurant. For each restaurant, the following variables were reported: address, city, state, zip, longitude, and latitude. 
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 2 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+La Quinta.  
+There are `r nrow(laquinta)` rows and `r ncol(laquinta)` variables in the dataset.
+```{r laquinta_properties}
+head(laquinta)
+```
+
+Each row corresponds to one motel. Variables include: address, city, state, zip, longitude, and latitude.  
 
 ### Exercise 3
 
-...
+Looking from the website, there are La Quinta locations outside of the U.S. The countries that have La Quinta: Canada, Mexico, China, New Zealand, Turkey, United Arab Emirates, Chile, Colombia, and Ecuador. I can't tell from the webiste whether there are any Denny's outside of the U.S, because it only let me view U.S. locations. However, when I google, it says there are Denny's in Canada, Mexico, Puerto Rico, Phillipines, New Zealand, Honduras, UAE, and a couple more countries. 
 
 ### Exercise 4
 
