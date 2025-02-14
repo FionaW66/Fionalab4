@@ -115,9 +115,80 @@ laquinta <- laquinta %>%
 ### Exercise 9
 Next, we will calculate which states have the most Denny's location.  
 Count dennys by state and join dennys and states datasets.
-```{r join}
-dn <- dennys %>% 
+```{r join_states_d}
+states_dn <- dennys %>% 
   count(state) %>% 
   inner_join(states, by = c("state" = "abbreviation"))
-head(dn)
+head(states_dn)
 ```
+
+We can do the same for La Quinta.
+```{r join_states_l}
+states_lq <- laquinta %>% 
+  count(state) %>% 
+  inner_join(states, by = c("state" = "abbreviation"))
+head(states_lq)
+```
+
+### Exercise 10
+
+Create a new variable for identifier. 
+```{r establishment}
+dennys <- dennys %>% 
+  mutate(establishment = "Denny's")
+laquinta <- laquinta %>% 
+  mutate(establishment = "La Quinta")
+```
+
+Binding the two datasets (dennys and laquinta)
+```{r bind}
+dn_lq <- bind_rows(dennys, laquinta)
+```
+
+Plot the locations.
+```{r map}
+ggplot(dn_lq, mapping = aes(
+  x = longitude,
+  y = latitude,
+  color = establishment
+)) + 
+  geom_point()
+```
+
+### Exercise 11
+Create visualization for NC!
+```{r NC}
+dn_lq %>% 
+  filter(state == "NC") %>% 
+  ggplot(mapping = aes(
+    x = longitude,
+    y = latitude,
+    color = establishment
+  )) + 
+  geom_point(alpha = 0.5) + 
+  labs(title = "Locations of Denny's and La Quinta" , 
+                subtitle = "North Carolina" , 
+                x = "Longitude" , 
+                y = "latitude" ) 
+```
+
+I don't think Mitch Hedberg's joke holds true here. There are a couple instances - 3, that La Quinta is right next to Denny's. However, as you can see from the plot, there are way more Denny's in the area than La Quinta. I personally don't think the joke is true. 
+
+### Exercise 12
+Create visualization for TX!
+```{r TX}
+dn_lq %>% 
+  filter(state == "TX") %>% 
+  ggplot(mapping = aes(
+    x = longitude,
+    y = latitude,
+    color = establishment
+  )) + 
+  geom_point(alpha = 0.2) + 
+    labs(title = "Locations of Denny's and La Quinta" , 
+                subtitle = "Texas" , 
+                x = "Longitude" , 
+                y = "latitude" ) 
+```
+
+In Texas, I don't think the joke is true either. There are three clusters of Denny's and La Quinta. I am assuming that those are the most populated places so it's really just a coincidence that La Quintas are next to Dennys. There are simply just too many of them. In Texas, there are more La Quinta than Denny's, so a lot of them are not paired up/next to a Denny's. 

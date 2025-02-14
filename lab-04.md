@@ -199,10 +199,10 @@ Next, we will calculate which states have the most Denny’s location.
 Count dennys by state and join dennys and states datasets.
 
 ``` r
-dn <- dennys %>% 
+states_dn <- dennys %>% 
   count(state) %>% 
   inner_join(states, by = c("state" = "abbreviation"))
-head(dn)
+head(states_dn)
 ```
 
     ## # A tibble: 6 × 4
@@ -214,3 +214,106 @@ head(dn)
     ## 4 AZ       83 Arizona    113990.
     ## 5 CA      403 California 163695.
     ## 6 CO       29 Colorado   104094.
+
+We can do the same for La Quinta.
+
+``` r
+states_lq <- laquinta %>% 
+  count(state) %>% 
+  inner_join(states, by = c("state" = "abbreviation"))
+head(states_lq)
+```
+
+    ## # A tibble: 6 × 4
+    ##   state     n name          area
+    ##   <chr> <int> <chr>        <dbl>
+    ## 1 AK        2 Alaska     665384.
+    ## 2 AL       16 Alabama     52420.
+    ## 3 AR       13 Arkansas    53179.
+    ## 4 AZ       18 Arizona    113990.
+    ## 5 CA       56 California 163695.
+    ## 6 CO       27 Colorado   104094.
+
+### Exercise 10
+
+Create a new variable for identifier.
+
+``` r
+dennys <- dennys %>% 
+  mutate(establishment = "Denny's")
+laquinta <- laquinta %>% 
+  mutate(establishment = "La Quinta")
+```
+
+Binding the two datasets (dennys and laquinta)
+
+``` r
+dn_lq <- bind_rows(dennys, laquinta)
+```
+
+Plot the locations.
+
+``` r
+ggplot(dn_lq, mapping = aes(
+  x = longitude,
+  y = latitude,
+  color = establishment
+)) + 
+  geom_point()
+```
+
+![](lab-04_files/figure-gfm/map-1.png)<!-- -->
+
+### Exercise 11
+
+Create visualization for NC!
+
+``` r
+dn_lq %>% 
+  filter(state == "NC") %>% 
+  ggplot(mapping = aes(
+    x = longitude,
+    y = latitude,
+    color = establishment
+  )) + 
+  geom_point(alpha = 0.5) + 
+  labs(title = "Locations of Denny's and La Quinta" , 
+                subtitle = "North Carolina" , 
+                x = "Longitude" , 
+                y = "latitude" ) 
+```
+
+![](lab-04_files/figure-gfm/NC-1.png)<!-- -->
+
+I don’t think Mitch Hedberg’s joke holds true here. There are a couple
+instances - 3, that La Quinta is right next to Denny’s. However, as you
+can see from the plot, there are way more Denny’s in the area than La
+Quinta. I personally don’t think the joke is true.
+
+### Exercise 12
+
+Create visualization for TX!
+
+``` r
+dn_lq %>% 
+  filter(state == "TX") %>% 
+  ggplot(mapping = aes(
+    x = longitude,
+    y = latitude,
+    color = establishment
+  )) + 
+  geom_point(alpha = 0.2) + 
+    labs(title = "Locations of Denny's and La Quinta" , 
+                subtitle = "Texas" , 
+                x = "Longitude" , 
+                y = "latitude" ) 
+```
+
+![](lab-04_files/figure-gfm/TX-1.png)<!-- -->
+
+In Texas, I don’t think the joke is true either. There are three
+clusters of Denny’s and La Quinta. I am assuming that those are the most
+populated places so it’s really just a coincidence that La Quintas are
+next to Dennys. There are simply just too many of them. In Texas, there
+are more La Quinta than Denny’s, so a lot of them are not paired up/next
+to a Denny’s.
