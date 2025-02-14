@@ -67,5 +67,57 @@ dennys <- dennys %>%
 head(dennys)
 ```
  
+### Exercise 7
 
+Find out the La Quinta locations that are outside of the U.S.
 
+```{r LQ_outside}
+laquinta %>% 
+  filter(!(state %in% states$abbreviation))
+```
+
+There are 14 instances/motels that are not in the United States. I hope that none of the outside states have the same abbreviations as the U.S. states. 
+After some googling, I now know where each is from.   
+AG - Mexico.  
+QR - Mexico.  
+CH - Mexico.   
+NL - Mexico.  
+ANT - Colombia.  
+NL - Mexico.  
+ON - Canada.  
+VE - Mexico.  
+PU - Mexico.  
+SL - Mexico. 
+FM - Honduras. 
+BC - Canada.  
+For the ones that are located outside of the U.S., they are in Mexico, Canada, Colombia, and Honduras. 
+
+### Exercise 8
+
+We want to create a country variable for la quinta data.  
+```{r country_laquinta}
+laquinta <- laquinta %>% 
+  mutate(country = case_when(
+    state %in% state.abb ~ "United States", 
+    state %in% c("ON", "BC") ~ "Canada",
+    state == "ANT" ~ "Colombia",
+    state == "FM" ~ "Honduras",
+    state %in% c("AG", "QR", "CH", "NL", "VE", "PU", "SL") ~ "Mexico"
+  ))
+```
+
+We will filter for only the United States data in la quinta.
+```{r US_laquinta}
+laquinta <- laquinta %>% 
+  filter(country == "United States")
+```
+
+### Exercise 9
+Next, we will calculate which states have the most Denny's location.  
+Count dennys by state and join dennys and states datasets.
+```{r join}
+dn <- dennys %>% 
+  count(state) %>% 
+  inner_join(states, by = c("state" = "abbreviation"))
+head(dn)
+```
